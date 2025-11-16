@@ -1,0 +1,26 @@
+/* Animation for file drop */
+@keyframes pulse {
+    0% { border-color: #6366f1; }
+    50% { border-color: #a5b4fc; }
+    100% { border-color: #6366f1; }
+}
+
+.pulse {
+    animation: pulse 1.5s infinite;
+}
+
+/* Custom file input styling */
+#fileInput:focus + label,
+#fileInput:active + label {
+    outline: 2px solid #6366f1;
+    outline-offset: 2px;
+}
+
+/* Spinner animation */
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}

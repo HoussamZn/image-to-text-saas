@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to Text Extractor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            500: '#6366f1',
+                        },
+                        secondary: {
+                            500: '#f43f5e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    <header class="bg-primary-500 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <h1 class="text-3xl font-bold flex items-center gap-2">
+                <i data-feather="image"></i> Image to Text Extractor
+            </h1>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-4 py-12">
+        <div class="bg-white rounded-xl shadow-2xl p-8 max-w-4xl w-full mx-auto">
+            <div class="text-center mb-8">
+                <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i data-feather="check" class="text-green-500 w-10 h-10"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Text Extraction Complete</h2>
+                <p class="text-gray-600">Here's the text we found in your image</p>
+            </div>
+
+            <div class="bg-gray-50 p-6 rounded-lg border border-gray-200 mb-8">
+                <pre id="extractedText" class="whitespace-pre-wrap font-mono text-gray-800">{{ text }}</pre>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="/" class="bg-primary-500 hover:bg-primary-600 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2">
+                    <i data-feather="upload"></i>
+                    <span>Upload Another</span>
+                </a>
+                <button id="copyButton" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2">
+                    <i data-feather="copy"></i>
+                    <span>Copy Text</span>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        feather.replace();
+        
+        document.getElementById('copyButton').addEventListener('click', function() {
+            const textToCopy = document.getElementById('extractedText').textContent;
+            navigator.clipboard.writeText(textToCopy)
+                .then(() => {
+                    const button = document.getElementById('copyButton');
+                    button.innerHTML = '<i data-feather="check"></i><span>Copied!</span>';
+                    feather.replace();
+                    setTimeout(() => {
+                        button.innerHTML = '<i data-feather="copy"></i><span>Copy Text</span>';
+                        feather.replace();
+                    }, 2000);
+                });
+        });
+    </script>
+</body>
+</html>
